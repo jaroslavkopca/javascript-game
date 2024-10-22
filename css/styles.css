@@ -1,0 +1,449 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #e74c3c;
+    --font-family: 'PixelFont';
+}
+
+@font-face {
+    font-family: 'PixelFont';
+    src: url('/./fonts/joystix\ monospace.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cinzel';
+    src: url('/./fonts/OptimusPrincepsSemiBold.ttf') format('truetype');
+}
+
+button {
+    font-family: 'PixelFont', sans-serif !important;
+}
+
+body {
+    font-family: 'PixelFont', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 120px);
+}
+
+canvas {
+    font-family: 'PixelFont', sans-serif;
+}
+
+
+/* Add this to your styles.css file */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-text {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    width: 80%;
+    height: 20px;
+    background-color: #444;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0;
+    height: 100%;
+    background-color: #0f0;
+    transition: width 0.3s;
+}
+
+.game-endmenu-paused-msg{
+    font-weight: 900;
+    width: max-content;
+    color: white;
+    font-size: 3rem; /* Adjust size as needed */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.game-endmenu-dead-msg {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    width: max-content;
+    color: red;
+    font-size: 3rem; /* Adjust size as needed */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.game-endmenu-win-msg {
+    font-family: 'Pixel-font', serif;
+    font-weight: 900;
+    width: max-content;
+    color: rgb(13, 209, 223);
+    font-size: 3rem; /* Adjust size as needed */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.game-container {
+    position: relative;
+    background-color: #333;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: calc(100vh - 120px); /* Maximum height based on main's height */
+    overflow: hidden; /* Prevents overflow content outside game container */
+}
+
+
+
+/* Media Queries */
+@media (max-width: 300px) {
+    .game-container, canvas {
+        width: 100%; /* Occupy full width */
+        height: 100%; /* Occupy full height */
+        max-width: none; /* No maximum width */
+        max-height: none; /* No maximum height */
+    }
+
+    /* Adjust specific elements within game container as needed */
+    .player-info img {
+        display: none; /* Example: Hide player icon on very small screens */
+    }
+}
+
+@media (max-height: 500px) {
+    footer{
+        display: none;
+    }
+}
+
+@media (min-width: 301px) and (max-width: 1200px) {
+    .game-container, canvas {
+        width: calc(80vh * (600 / 800)); /* Udržení poměru 4:3 */
+        height: 80vh; /* Výška 80% výšky obrazovky */
+        max-width: calc(80vh * (600 / 800)); /* Maximální šířka podle poměru */
+        max-height: 80vh; /* Maximální výška 80% výšky obrazovky */
+    }
+}
+
+@media (min-width: 1201px) {
+    .game-container, canvas {
+        width: 960px; /* Fixní šířka pro větší obrazovky */
+        height: calc(960px * (600 / 800)); /* Udržení poměru 4:3 */
+        max-width: 100%; /* Maximální šířka 100% šířky obrazovky */
+        max-height: calc(100vw * (600 / 800)); /* Maximální výška podle poměru */
+    }
+}
+
+
+
+.game-start,
+.game-mainmenu,
+.game-upgrademenu,
+.game-endmenu,
+.game-settings,
+.loading-screen {
+    font-family: 'PixelFont';
+    font-size: 0.7em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.game-upgrademenu {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #444;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.player-info {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: center;
+}
+
+.player-info img {
+    width: 100px;
+    height: 100px;
+}
+
+.player-coins {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+    color: gold; /* Color for gold coins */
+    font-size: 18px;
+}
+
+.upgrade-shop {
+    position: absolute;
+    bottom: 32%; /* Adjusted to make room for the button */
+    left: 2%;
+    text-align: left;
+}
+
+.upgrade-shop h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.upgrade-item {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upgrade-item span {
+    margin-right: 10px;
+}
+
+.upgrade-button {
+    padding: 5px 10px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.upgrade-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.weapon-shop {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    text-align: center;
+}
+
+.weapon-shop h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.weapon-item {
+    cursor: grab;
+    margin-bottom: 10px;
+}
+
+.weapon-item img {
+    width: 50px;
+    height: 50px;
+}
+
+.player-equipment {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+.player-equipment h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.equipment-slot {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed white;
+    float: inline-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    background-color: #333;
+}
+
+.equipment-slot.drag-over {
+    border-color: var(--primary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+
+.menu-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-button:hover {
+    background-color: #2980b9;
+}
+
+.center-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.game-settings {
+    font-family: 'PixelFont';
+    font-size: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.sound-settings {
+    margin-bottom: 20px;
+}
+
+.sound-settings h3 {
+    margin-bottom: 10px;
+}
+
+.character-menu {
+    margin-bottom: 20px;
+}
+
+.character-menu h3 {
+    margin-bottom: 10px;
+}
+
+#muteButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, transform 0.5s ease;
+}
+
+#muteButton.muted {
+    background-color: #e74c3c;
+}
+
+#muteButton.muted:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#muteButton .icon {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    opacity: 1;
+    transition: transform 0.5s ease;
+}
+
+#muteButton.muted .icon {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+
+
+#volumeSlider {
+    width: 80%;
+    margin: 10px 0;
+}
+
+.center-button {
+    margin-top: 20px;
+}
+
+
+
+
+
+
+canvas {
+    display: block;
+    margin: auto;
+    border: 1px solid black;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+}

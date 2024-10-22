@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece Survival</title>
+    <link rel="stylesheet" href="http://127.0.0.1:5501/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>One Piece Survival</h1>
+    </header>
+    <main>
+        <div class="game-container">
+            <div id="loadingScreen" class="loading-screen">
+                <div class="loading-text">Loading...</div>
+                <div class="progress-bar">
+                    <div id="progressBarFill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+            <div id="game-start" class="game-start">
+                <div class="controls">
+                    <button id="startButton">Start</button>
+                </div>
+            </div>
+            <div id="game-mainmenu" class="game-mainmenu" style="display: none;">
+                <button class="menu-button" id="startGameButton">Start Game</button>
+                <button class="menu-button" id="upgradeMenuButton">Upgrade Menu</button>
+                <button class="menu-button" id="settingsButton">Settings</button>
+            </div>
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div class="game-upgrademenu" style="display: none;">
+                <h2>Upgrade Menu</h2>
+                <div class="player-info">
+                    <img id="playerTexture" src="http://127.0.0.1:5501/textures/player.svg" alt="Player Texture">
+                </div>
+                <div class="player-coins">
+                    <p id="playerCoins"></p>
+                </div>
+                <div class="upgrade-shop">
+                    <h2>Upgrade Shop</h2>
+                    <div id="upgradeItemsContainer"></div>
+                </div>
+                <div class="weapon-shop">
+                    <h2>Weapon Shop</h2>
+                    <div class="weapon-item" data-weapon="sword" data-price="100">
+                        <img src="http://127.0.0.1:5501/textures/sword.svg" alt="Sword">
+                        <p class="weapon-price">Price: 100 coins</p>
+                        <p class="status">Buy Weapon</p>
+                    </div>
+                    <div class="weapon-item" data-weapon="bow" data-price="150">
+                        <img src="http://127.0.0.1:5501/textures/bow.svg" alt="Bow">
+                        <p class="weapon-price">Price: 150 coins</p>
+                        <p class="status">Buy Weapon</p>
+                    </div>
+                </div>
+                <div class="player-equipment">
+                    <h2>Player Equipment</h2>
+                    <div class="equipment-slot" id="weaponSlot">
+                        <img id="equippedWeaponImage" src="" alt="Equipped Weapon">
+                    </div>
+                </div>
+                <button id="backToMainMenuButton" class="center-button">Back to Main Menu</button>
+            </div>
+            <div class="game-endmenu" style="display: none;">
+                <div class="game-endmenu-dead-msg" style="display: none;">You Died</div>
+                <div class="game-endmenu-win-msg" style="display: none;">You WON</div>
+                <div class="game-endmenu-paused-msg" style="display: none;">PAUSED</div>
+                <button id="resumeButton" class="menu-button">Resume</button>
+                <button id="restartButton" class="menu-button">Restart Game</button>
+                <button id="backToMenuButton" class="menu-button">Back to Menu</button>
+            </div>
+            <div id="game-settings" class="game-settings" style="display: none;">
+                <h2>Settings</h2>
+                <div class="sound-settings">
+                    <h3>Sound Settings</h3>
+                    <label for="volumeSlider">Volume:</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="50" step="1">
+                    <button id="muteButton" class="mute-button">Mute</button>
+                </div>
+                <div class="character-menu">
+                    <h3>Character Menu</h3>
+                    <p>Current Coins: <span id="currentCoinsDisplay"></span></p>
+                    <button id="addCoinsButton" class="menu-button">Add 100 Coins</button>
+                </div>
+                <button id="backToMainMenuSettings" class="center-button">Back to Main Menu</button>
+            </div>
+            
+        </div>
+    </main>
+    <footer>
+        <p>B0B39KAJ - Tvorba klientských aplikací v JavaScriptu</p>
+        <p>Jaroslav Kopča</p>
+        <p><a href="https://gitlab.fel.cvut.cz/kopcajar/kaj-semestralka">Gitlab</a></p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="http://127.0.0.1:5501/js/menu.js" type="module"></script>
+</body>
+</html>
